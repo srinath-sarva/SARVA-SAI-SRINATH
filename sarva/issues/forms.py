@@ -16,6 +16,12 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model=User 
         fields=["username","email","password1","password2","phone","gender","address","propic"]
-         
+
+class c():
+  
+    class Meta:
+        model=complaints
+        fields=["name","compname","pic1","pic2","place","city","desc"] 
+     
 
          

@@ -80,3 +80,24 @@ def mydetails(request):
             break
     return render(request,"issues/mydetails.html",{"persons":persons,"phone":phone,"name":name,"email":email,"gender":gender,"address":address,"i":i})
 
+def makecomplaint(request):
+    if request.method=="POST":
+        profile=request.user.get_username()
+        user=User.objects.get(username=profile)
+        compname=request.POST.get("compname")
+        place=request.POST.get("place")
+        city=request.POST.get("city")
+        desc=request.POST.get("desc")
+        compname=request.POST.get("compname")
+        pic1=request.POST.get("pic1") 
+        pic2=request.POST.get("pic2") 
+        print(pic1)
+        s=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,place=place,city=city,desc=desc)
+        s.save()
+    return render(request,"issues/makecomplaint.html")
+
+
+       
+
+
+    

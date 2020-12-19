@@ -1,0 +1,70 @@
+{%  extends 'issues/main.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKE COMPLAINTS</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<style>
+    .textboxid
+{
+    height:200px;
+    font-size:14pt;
+    width:1000px;
+}
+.textboxid1
+{
+    height:50px;
+    font-size:14pt;
+    width:200px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+</style>
+<body>
+
+       {% block content %}
+
+<div style="border: 30px;">
+  <h2>Post a Complaint </h2>
+    <form class="form-group" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <input  class="textboxid1 form-control"  placeholder="name of the complaint" type ="text" name="compname"><br>
+    <input class="textboxid1 form-control" type ="text"  placeholder ="place/location" name="place"><br>
+    <input class="textboxid1 form-control" type ="text"  placeholder ="city" name="city"><br>
+
+    <input class="textboxid form-control" type ="text"  placeholder= "decribe the problem "name="desc"><br>
+    <h3>Upload Pic 1</h3><input type="file" name="pic1">
+    <h3>Upload Pic 2</h3><input  type="file" name="pic2"> 
+
+    <button type="submit">Make Complaint </button>
+    </form>
+</div>
+    {% endblock %}
+</body>
+</html>
