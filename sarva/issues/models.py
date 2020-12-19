@@ -20,6 +20,8 @@ class complaints(models.Model):
     compname=models.CharField(max_length=400,null=False)
     pic1=models.ImageField(null=True)
     pic2=models.ImageField(null=True)
+    pic2=models.ImageField(null=True)
+    pic3=models.ImageField(null=True)
     place=models.CharField(max_length=400,null=False)
     city=models.CharField(max_length=400,null=False)
     date=models.DateTimeField(auto_now_add=True,null=True)

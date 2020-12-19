@@ -21,7 +21,7 @@ class Createcomplaint(forms.ModelForm):
   
     class Meta:
         model=complaints
-        fields=["name","compname","pic1","pic2","place","city","desc"] 
+        fields=["compname","pic1","pic2","pic3","place","city","desc"] 
 
      
 

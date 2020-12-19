@@ -41,7 +41,7 @@ def loginpage(request):
             login(request,user)
             profile=request.user.get_username() 
             print(profile)
-            return redirect('mydetails') 
+            return redirect('posts') 
         else:
             messages.info(request,"wrong")
 
@@ -81,22 +81,38 @@ def mydetails(request):
     return render(request,"issues/mydetails.html",{"persons":persons,"phone":phone,"name":name,"email":email,"gender":gender,"address":address,"i":i})
 
 def makecomplaint(request):
+
     form=Createcomplaint()
     if request.method=="POST":
         form=Createcomplaint(request.POST,request.FILES)
         form.save()
         profile=request.user.get_username()
+    
         propic=request.user.person.propic.url
-        name=form.cleaned_data.get("name")
         compname=form.cleaned_data.get("compname")
         pic1=form.cleaned_data.get("pic1")
         pic2=form.cleaned_data.get("pic2")
+        pic3=form.cleaned_data.get("pic3")
         place=form.cleaned_data.get("place")
 
         city=form.cleaned_data.get("city")
         desc=form.cleaned_data.get("desc")
-        c=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,place=place,city=city,desc=desc,propic=propic)
+        c=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,pic3=pic3,place=place,city=city,desc=desc,propic=propic)
         c.save()
     return render(request,"issues/makecomplaint.html",{"form":form})    
 def showcomplaint(request):
-    
+    if request.method=="POST":
+        u=request.POST.get('up') 
+        print(u)
+        s=complaints.objects.filter(id=u).values("upvote")
+        k=str(s).split(":")[-1]
+        h=k.split("}]>")[0]
+        c=int(h)
+        s=complaints.objects.filter(id=u).update(upvote=c+1)
+
+        
+
+    com=complaints.objects.all()
+    print(com)
+    return render(request,"issues/posts.html",{"p":com})
+

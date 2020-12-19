@@ -9,5 +9,7 @@ urlpatterns=[
     path('mydetails/',views.mydetails,name="mydetails"),
     path('logout/',views.logoutuser,name="logout"),
     path('makecomplaint/',views.makecomplaint,name="makecomplaint"),
+    path('posts/',views.showcomplaint,name="posts"),
+    path('',views.showcomplaint,name="posts"),
 
 ]
