@@ -1,0 +1,71 @@
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration For Public Issues </title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+<style>
+    body {
+    background-size: cover;
+}
+
+*[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 0.3em;
+    background-color: #f2f2f2;
+}
+
+*[role="form"] h2 { 
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 5%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+
+</style>
+<body>
+   
+        
+    
+<form class="form-horizontal" role="form" method="POST" action="">
+    {% csrf_token %}
+    <h2>LOGIN </h2>
+    <div class="form-group">
+        <label for="Height" class="col-sm-3 control-label">USERNAME </label>
+    <div class="col-sm-9">
+        <input  name="username" placeholder="enter username" class="form-control">
+
+    </div>
+</div>
+{{message}}
+ <div class="form-group">
+        <label for="weight" class="col-sm-3 control-label">PASSWORD </label>
+    <div class="col-sm-9">
+        <input type="password" name="password"  class="form-control">
+    </div>
+</div>
+    <button type="submit" class="btn btn-primary btn-block"> LOGIN  </button>
+    <p class="text-center">Dont Have Account ?? create <a href="/register">REGISTER</a> </p>                                                                 
+    <p class="text-center">forgot password?? <a href="{% url 'reset_password' %}">reset password</a> </p>                                                                 
+
+    </form>
+</body>
+</html>

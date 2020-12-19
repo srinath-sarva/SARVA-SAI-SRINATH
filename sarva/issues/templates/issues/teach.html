@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">STUDENT MANAGEMENT </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'details' %}">STUDENT DETAILS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addassign' %}">ADD A ASSIGNMENT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'mydetails' %}">MY DETAILS</a>
+        </li>
+      </ul>
+    </div>
+    <span style="size:18px;color:white; margin-right: 5px;">Hello {{request.user}}</span>
+    <span><a href="{% url 'logout' %}">logout</a></span>
+  
+  </nav>
+
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>STUDENTS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">STUDENTS </a>
+			<table class="table table-sm">
+				<tr>
+
+					
+					<th>STUDENT NAME</th>
+					<th>ROLLNO</th>
+				</tr>
+				{% for i in students %}
+				<tr>
+				
+					<td>{{i.name}} </td>
+					
+					<td>{{i.regid}}</td>
+					
+		      	</tr>
+				  {% endfor %}
+				
+			
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>TOP MARKS</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">MARKS</a>
+			<table class="table table-sm">
+
+				<tr>
+					<th>STUDENT NAME </th>
+					<th>PHYSICS</th>
+					<th>MATHS</th>
+					<th>SCIENCE</th>
+					<th>SOCIAL</th>
+					<th>ENGLISH</th>
+					<th>TOTAL</th>
+				</tr>
+						{% for i in marks %}
+						<tr>
+						<td>{{i.regid.name}}</td>
+						<td>{{i.physics}}</td>
+						<td>{{i.maths}}</td>
+						<td>{{i.science}}</td>
+						<td>{{i.social}}</td>
+						<td>{{i.english}}</td>
+						<td>{{i.total}}</td>
+					   </tr>
+						{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+

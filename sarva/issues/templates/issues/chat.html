@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+body {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+
+<script>
+    
+    printSomething();
+
+function printSomething(){
+    
+    window.scrollTo(0,document.body.scrollHeight);}
+</script>
+<body onload="printSomething()">
+    {%  extends 'accounts/main.html' %}
+    {% block content %}
+<h2>Chat Messages</h2>
+{% for i in chats %}
+<div class="container">
+  <img src="/images/propic.png"  style="width:100%;">
+  <h3>{{i.name}}</h3>
+  <p>{{i.chat}}</p>
+  <span class="time-right">{{i.date}}</span>
+</div>
+{% endfor %}
+<div class="container" id="cont">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" id="bottom" name="chat">
+        <button type="submit">send</button>
+        <a href="">refresh new messages</a>
+    </form>
+</div>
+{% endblock %}
+
+</body>
+</html>
