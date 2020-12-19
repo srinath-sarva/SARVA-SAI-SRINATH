@@ -31,3 +31,52 @@ def register(request):
             messages.info(request,"registration success")
     context={'form':form}
     return render(request,"issues/register.html",context) 
+def loginpage(request):
+    if(request.method=='POST'):
+        username=request.POST.get('username').lower()
+        password=request.POST.get('password')
+        user=authenticate(request,username=username,password=password)
+        print(user)
+        if user is not None: 
+            login(request,user)
+            profile=request.user.get_username() 
+            print(profile)
+            return redirect('mydetails') 
+        else:
+            messages.info(request,"wrong")
+
+
+    return render(request,"issues/login.html")
+
+def logoutuser(request):
+    logout(request)
+    return redirect('login') 
+@login_required(login_url='login')
+def mydetails(request):
+    persons=person.objects.all()
+
+    profile=request.user.get_username()
+
+    print(profile)
+    print(persons)
+    if request.method=="POST":
+        uemail=request.POST.get('email')
+        uphone=request.POST.get('phone') 
+        uaddress=request.POST.get('address')
+        s=persons.objects.filter(name=profile).update(phone=uphone,email=uemail,address=uaddress)
+
+    for i in persons:
+
+        if(i.name==profile):
+            
+            name=i.name 
+             
+            email=i.email
+            gender=i.gender
+            phone=i.phone
+            address=i.address
+            return render(request,"issues/mydetails.html",{"persons":persons,"phone":phone,"name":name,"email":email,"gender":gender,"address":address,"i":i})
+
+            break
+    return render(request,"issues/mydetails.html",{"persons":persons,"phone":phone,"name":name,"email":email,"gender":gender,"address":address,"i":i})
+

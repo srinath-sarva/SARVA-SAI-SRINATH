@@ -7,13 +7,13 @@
 }
 
 </style>
-{%  extends 'accounts/main.html' %}
+{%  extends 'issues/main.html' %}
 
 {% block content %}
 {{marks}}
 	<br>
 	<br>
-	<img class="profile" src="{{request.user.student.propic.url}}">
+	<img class="profile" src="{{request.user.person.propic.url}}">
 	<br>
 
 	<br>
@@ -25,16 +25,17 @@
             <hr>
             <p>NAME:{{name}}</p>
 			<p>Email: {{email}}</p>
-			<p>regid: {{regid}}</p>
+			<p>regid: {{address}}</p>
             <p>gender:{{gender}}</p>
 			<p>phone:{{phone}}</p>
 			<form method="POST" action="">
 		{% csrf_token %}
 		<label for="lname">email:</label><br>
 		<input type="text" id="lname" name="email" value="{{email}}">
-		<label for="lname">Registration No:{{regid}}</label><br>
 		<label for="lname">Phone:</label><br>
 		<input type="text" id="lname" name="phone" value="{{phone}}">
+		<label for="lname">Adresss:</label><br>
+		<input type="text" id="lname" name="phone" value="{{address}}">
 		<button type="submit" >UPDATE</button>
 	  </form>
 		</div>
