@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm,Createcomplaint
 from django.contrib  import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -81,23 +81,22 @@ def mydetails(request):
     return render(request,"issues/mydetails.html",{"persons":persons,"phone":phone,"name":name,"email":email,"gender":gender,"address":address,"i":i})
 
 def makecomplaint(request):
+    form=Createcomplaint()
     if request.method=="POST":
+        form=Createcomplaint(request.POST,request.FILES)
+        form.save()
         profile=request.user.get_username()
-        user=User.objects.get(username=profile)
-        compname=request.POST.get("compname")
-        place=request.POST.get("place")
-        city=request.POST.get("city")
-        desc=request.POST.get("desc")
-        compname=request.POST.get("compname")
-        pic1=request.POST.get("pic1") 
-        pic2=request.POST.get("pic2") 
-        print(pic1)
-        s=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,place=place,city=city,desc=desc)
-        s.save()
-    return render(request,"issues/makecomplaint.html")
+        propic=request.user.person.propic.url
+        name=form.cleaned_data.get("name")
+        compname=form.cleaned_data.get("compname")
+        pic1=form.cleaned_data.get("pic1")
+        pic2=form.cleaned_data.get("pic2")
+        place=form.cleaned_data.get("place")
 
-
-       
-
-
+        city=form.cleaned_data.get("city")
+        desc=form.cleaned_data.get("desc")
+        c=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,place=place,city=city,desc=desc,propic=propic)
+        c.save()
+    return render(request,"issues/makecomplaint.html",{"form":form})    
+def showcomplaint(request):
     

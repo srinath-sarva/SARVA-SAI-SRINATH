@@ -54,13 +54,7 @@ li a {
   <h2>Post a Complaint </h2>
     <form class="form-group" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-    <input  class="textboxid1 form-control"  placeholder="name of the complaint" type ="text" name="compname"><br>
-    <input class="textboxid1 form-control" type ="text"  placeholder ="place/location" name="place"><br>
-    <input class="textboxid1 form-control" type ="text"  placeholder ="city" name="city"><br>
-
-    <input class="textboxid form-control" type ="text"  placeholder= "decribe the problem "name="desc"><br>
-    <h3>Upload Pic 1</h3><input type="file" name="pic1">
-    <h3>Upload Pic 2</h3><input  type="file" name="pic2"> 
+    {{form.as_p}}
 
     <button type="submit">Make Complaint </button>
     </form>

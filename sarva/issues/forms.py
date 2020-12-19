@@ -17,11 +17,12 @@ class CreateUserForm(UserCreationForm):
         model=User 
         fields=["username","email","password1","password2","phone","gender","address","propic"]
 
-class c():
+class Createcomplaint(forms.ModelForm):
   
     class Meta:
         model=complaints
         fields=["name","compname","pic1","pic2","place","city","desc"] 
+
      
 
          
