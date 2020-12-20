@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 
-from .forms import CreateUserForm,Createcomplaint
+from .forms import CreateUserForm,Createcomplaint,Statusform
 from django.contrib  import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -82,37 +82,81 @@ def mydetails(request):
 
 def makecomplaint(request):
 
+    complaints.objects.filter(propic="").delete()
+
+    profile=request.user.get_username()
+    
+    propic=request.user.person.propic.url
     form=Createcomplaint()
     if request.method=="POST":
         form=Createcomplaint(request.POST,request.FILES)
         form.save()
         profile=request.user.get_username()
-    
         propic=request.user.person.propic.url
+
         compname=form.cleaned_data.get("compname")
         pic1=form.cleaned_data.get("pic1")
         pic2=form.cleaned_data.get("pic2")
         pic3=form.cleaned_data.get("pic3")
         place=form.cleaned_data.get("place")
-
+    
         city=form.cleaned_data.get("city")
         desc=form.cleaned_data.get("desc")
         c=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,pic3=pic3,place=place,city=city,desc=desc,propic=propic)
         c.save()
+        complaints.objects.filter(propic=None).delete()
+
     return render(request,"issues/makecomplaint.html",{"form":form})    
 def showcomplaint(request):
+    complaints.objects.filter(propic="").delete()
+
     if request.method=="POST":
         u=request.POST.get('up') 
-        print(u)
         s=complaints.objects.filter(id=u).values("upvote")
         k=str(s).split(":")[-1]
         h=k.split("}]>")[0]
         c=int(h)
         s=complaints.objects.filter(id=u).update(upvote=c+1)
-
+    com=complaints.objects.all()
+    for i in com:
+        print(i)
+   
+    return render(request,"issues/posts.html",{"p":com})
+def showmycomplaint(request):
+    profile=request.user.get_username()
+    com=complaints.objects.filter(name=profile)
+   
+    if request.method=="POST":
+        id=request.POST.get('id')
+        id1=request.POST.get('id1')
+        pom=complaints.objects.filter(id=id).delete()
+        return render(request,"issues/myposts.html",{"p":com})
         
+    for i in com:
+        print(i.status)
+    return render(request,"issues/myposts.html",{"p":com})
+    
+def adminedit(request):
+    complaints.objects.filter(propic="").delete()
+    complaints.objects.filter(compname="").delete()
+
 
     com=complaints.objects.all()
-    print(com)
-    return render(request,"issues/posts.html",{"p":com})
+    form=Statusform()
+    if request.method=="POST":
+        complaints.objects.filter(propic="").delete()
+        complaints.objects.filter(compname="").delete()
+
+        form=Statusform(request.POST,request.FILES)
+        form.save()
+        g=form.cleaned_data.get('status')
+        id=request.POST.get('id')
+        complaints.objects.filter(id=id).update(status=g)
+
+        complaints.objects.filter(propic="").delete()
+        complaints.objects.filter(compname="").delete()
+
+
+
+    return render(request,"issues/adminedit.html",{"p":com,"form":form})
 

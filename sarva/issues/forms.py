@@ -23,6 +23,8 @@ class Createcomplaint(forms.ModelForm):
         model=complaints
         fields=["compname","pic1","pic2","pic3","place","city","desc"] 
 
-     
+class Statusform(forms.ModelForm):
 
-         
+    class Meta:
+        model=complaints
+        fields=["status"]

@@ -11,5 +11,9 @@ urlpatterns=[
     path('makecomplaint/',views.makecomplaint,name="makecomplaint"),
     path('posts/',views.showcomplaint,name="posts"),
     path('',views.showcomplaint,name="posts"),
+    path('myposts/',views.showmycomplaint,name="myposts"),
+    path('adminedit/',views.adminedit,name="adminedit"),
+
+
 
 ]

@@ -1,0 +1,75 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<style>
+    .top1 {
+    	
+    width: 70px;
+    height:70px;
+    border-radius: 50%
+    }
+    .profile1 {
+    	
+        width: 300px;
+        height:300px;
+        border-radius: 50%
+        }
+.top1 img {
+    height:100%;
+}
+</style>
+{%  extends 'issues/main.html' %}
+{% block content %}
+<body style="background-color:#ccc;">
+
+    {% for i in p %}
+<div class="row">
+<div class="col-md-3">
+
+</div>
+<div class=" col-md-5 " >
+<div class="card mb-3" >
+
+    <div class="card-body"> 
+
+        <img src="{{i.propic}}"  class="top1" alt="..." class="img-thumbnail">
+      <h5 class="card-title">{{i.name}}</h5>
+      <p class="card-text"> {{i.desc}}</p>
+      <div class="card text-secondary bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">ADDRESS</div>
+        <div class="card-body">
+          <h5 class="card-title">{{i.city}}</h5>
+          <p class="card-text">{{i.place}}</p>       </div>
+      </div>
+      <p class="card-text"><small class="text-muted">{{i.date}}</small></p>
+
+      <div class="row">
+      </div>  
+      <img src="{{i.pic1.url}}" class="card-img-top" alt="">
+      <div class="row">
+      <img class="col-lg-5"src="{{i.pic2.url}}" class="card-img-top" alt="">
+     
+      <img class="col-lg-5"src="{{i.pic3.url}}" class="card-img-top" alt="">
+<br>
+       </div>
+     
+       <p1>upvoted by {{i.upvote}}</p1><br>
+       <form method="POST" action="">
+           {% csrf_token %}
+
+           {{form.as_p}}
+<br>
+       <button type="submit"name="id" value="{{i.id}}">update</button>
+       </form>
+       <p1 class="badge bg-primary text-light">status : {{i.status}}</p1>
+
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+</body>
+{% endblock %}
