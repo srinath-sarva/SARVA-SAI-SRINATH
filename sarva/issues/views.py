@@ -29,6 +29,7 @@ def register(request):
             p=person(user=user,name=username,email=email,phone=phone,gender=gender,propic=propic,address=address)
             p.save()
             messages.info(request,"registration success")
+            return redirect('login')
     context={'form':form}
     return render(request,"issues/register.html",context) 
 def loginpage(request):
@@ -41,7 +42,10 @@ def loginpage(request):
             login(request,user)
             profile=request.user.get_username() 
             print(profile)
-            return redirect('posts') 
+            if(profile=='srinath'):
+                return redirect('adminedit') 
+            else:
+                return redirect('posts')
         else:
             messages.info(request,"wrong")
 
@@ -105,6 +109,7 @@ def makecomplaint(request):
         c=complaints(name=profile,compname=compname,pic1=pic1,pic2=pic2,pic3=pic3,place=place,city=city,desc=desc,propic=propic)
         c.save()
         complaints.objects.filter(propic=None).delete()
+        return redirect('posts')
 
     return render(request,"issues/makecomplaint.html",{"form":form})    
 def showcomplaint(request):
@@ -144,9 +149,10 @@ def showmycomplaint(request):
     return render(request,"issues/myposts.html",{"p":com})
     
 def adminedit(request):
+
     complaints.objects.filter(propic="").delete()
     complaints.objects.filter(compname="").delete()
-
+    
 
     com=complaints.objects.all()
     form=Statusform()
