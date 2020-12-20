@@ -14,6 +14,7 @@ class person(models.Model):
     def __str__(self):
         return (self.name)
 class chat(models.Model):
+    cid=models.IntegerField(default=0)
     name=models.CharField(max_length=200,null=True) 
     chat=models.CharField(max_length=200,null=True)
     date=models.DateTimeField(auto_now_add=True,null=True)
@@ -32,9 +33,9 @@ class complaints(models.Model):
     city=models.CharField(max_length=400,null=False)
     date=models.DateTimeField(auto_now_add=True,null=True)
     desc=models.CharField(max_length=500,null=True)
-    upvote=models.IntegerField(null=True) 
+    upvote=models.IntegerField(null=True,default=0) 
     status=models.CharField(max_length=100,null=True,choices=(("open","open"),("no action taken","no action taken"),("submitted to the newspaper","submitted to the newspaper"),("resolved","resolved")),default="open")
     def __str__(self):
         return ((self.compname)+(self.city))
 
-
+   

@@ -1,78 +1,151 @@
+<html>
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <style>
-    .top1 {
-    	
-    width: 70px;
-    height:70px;
-    border-radius: 50%
+    .container {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
     }
-    .profile1 {
-    	
-        width: 100px;
-        height:100px;
+
+    .darker {
+        border-color: #ccc;
+        background-color: #ddd;
+    }
+
+    .container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .container img {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+
+    .container img.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
+    }
+
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+
+    .time-left {
+        float: left;
+        color: #999;
+    }
+
+    .top1 {
+
+        width: 70px;
+        height: 70px;
         border-radius: 50%
-        }
-.top1 img {
-    height:100%;
-}
+    }
+
+    .profile1 {
+
+        width: 100px;
+        height: 100px;
+        border-radius: 50%
+    }
+
+    .top1 img {
+        height: 100%;
+    }
 </style>
-{%  extends 'issues/main.html' %}
+{% extends 'issues/main.html' %}
 {% block content %}
 
-<img src="{{request.user.person.propic.url}}"  class="profile1" alt="..." class="img-thumbnail">
+<img src="{{request.user.person.propic.url}}" class="profile1" alt="..." class="img-thumbnail">
 
 <body style="background-color:#ccc;">
 
     {% for i in p %}
-<div class="row">
-<div class="col-md-3">
+    <div class="row">
+        <div class="col-md-3">
 
-</div>
-<div class=" col-md-5 " >
-<div class="card mb-3" >
+        </div>
+        <div class=" col-md-5 ">
+            <div class="card mb-3">
 
-    <div class="card-body"> 
+                <div class="card-body">
 
-        <img src="{{i.propic}}"  class="top1" alt="..." class="img-thumbnail">
-      <h5 class="card-title">{{i.name}}</h5>
-      <p class="card-text"> {{i.desc}}</p>
-      <div class="card text-secondary bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">ADDRESS</div>
-        <div class="card-body">
-          <h5 class="card-title">{{i.city}}</h5>
-          <p class="card-text">{{i.place}}</p>       </div>
-      </div>
-      <p class="card-text"><small class="text-muted">{{i.date}}</small></p>
+                    <img src="{{i.propic}}" class="top1" alt="..." class="img-thumbnail">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text"> {{i.desc}}</p>
+                    <div class="card text-secondary bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header">ADDRESS</div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{i.city}}</h5>
+                            <p class="card-text">{{i.place}}</p>
+                        </div>
+                    </div>
 
-      <div class="row">
-      </div>  
-      <img src="{{i.pic1.url}}" class="card-img-top" alt="">
-      <div class="row">
-      <img class="col-lg-5"src="{{i.pic2.url}}" class="card-img-top" alt="">
-     
-      <img class="col-lg-5"src="{{i.pic3.url}}" class="card-img-top" alt="">
-<br>
-       </div>
-       <form method="POST" >
-           {% csrf_token %}
-       <button  name="up" value="{{i.id}}"><i class="fa fa-thumbs-up"></i></button>
-       <br>
-       <p1>upvoted by {{i.upvote}}</p1><br>
-       <p1 class="badge bg-primary text-light">status : {{i.status}}</p1>
-       <form method="POST" action="chat">
-           {% csrf_token %}
-       <button  name="id" value="{{i.id}}">comments</button>
-       </form>
-    </form>
+                    <p class="card-text"><small class="text-muted">{{i.date}}</small></p>
+
+
+                    <img src="{{i.pic1.url}}" class="card-img-top" alt="">
+                    <div class="row">
+                        <img class="col-lg-5" src="{{i.pic2.url}}" class="card-img-top" alt="">
+
+                        <img class="col-lg-5" src="{{i.pic3.url}}" class="card-img-top" alt="">
+                        <br>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button name="up" value="{{i.id}}"><i class="fa fa-thumbs-up"></i></button>
+                        <br>
+                        <p1>upvoted by {{i.upvote}}</p1><br>
+                        <p1 class="badge bg-primary text-light">status : {{i.status}}</p1>
+                        <form method="POST" action="chat">
+                            {% csrf_token %}
+
+                            <br>
+                            <input type="text" name="mess">
+                            <button name="id" value="{{i.id}}">comment</button><br>
+                        </form>
+                        <h2>Chat Messages</h2>
+                        <div>
+                            {% for j in cha %}
+                            {% if j.cid == i.id %}
+    
+                            <div class="container">
+                                <p class="badge bg-danger text-light">{{j.name}}</p>
+                                <p>{{j.chat}}</p>
+                                <span class="time-right">{{j.date}}</span>
+                            </div>
+                        </div>
+    
+    
+                        <br>
+                        {% endif %}
+                        {% endfor %}
+                    </form>
+
+                  
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-</div>
-{% endfor %}
+    {% endfor %}
 </body>
 {% endblock %}
+
+</html>

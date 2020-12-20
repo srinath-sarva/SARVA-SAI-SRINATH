@@ -112,16 +112,23 @@ def showcomplaint(request):
 
     if request.method=="POST":
         u=request.POST.get('up') 
-        s=complaints.objects.filter(id=u).values("upvote")
-        k=str(s).split(":")[-1]
-        h=k.split("}]>")[0]
-        c=int(h)
-        s=complaints.objects.filter(id=u).update(upvote=c+1)
+        mess=request.POST.get('mess')
+        id=request.POST.get('id')
+        profile=request.user.get_username()
+        if(len(mess)>0):
+            o=chat(cid=id,name=profile,chat=mess)
+            o.save()
+        if(u):
+            s=complaints.objects.filter(id=u).values("upvote")
+            k=str(s).split(":")[-1]
+            h=k.split("}]>")[0]
+            c=int(h)
+            s=complaints.objects.filter(id=u).update(upvote=c+1)
     com=complaints.objects.all()
     for i in com:
         print(i)
-   
-    return render(request,"issues/posts.html",{"p":com})
+    cha=chat.objects.all()
+    return render(request,"issues/posts.html",{"p":com,"cha":cha})
 def showmycomplaint(request):
     profile=request.user.get_username()
     com=complaints.objects.filter(name=profile)
@@ -147,6 +154,7 @@ def adminedit(request):
         complaints.objects.filter(propic="").delete()
         complaints.objects.filter(compname="").delete()
 
+        
         form=Statusform(request.POST,request.FILES)
         form.save()
         g=form.cleaned_data.get('status')
@@ -159,4 +167,3 @@ def adminedit(request):
 
 
     return render(request,"issues/adminedit.html",{"p":com,"form":form})
-
